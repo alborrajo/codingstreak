@@ -1,4 +1,4 @@
-# codingstreak README
+# codingstreak
 
 Streak counter for VS Code
 

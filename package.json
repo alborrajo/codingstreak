@@ -3,6 +3,7 @@
 	"displayName": "CodingStreak",
 	"description": "Keep track of a streak of consecutive days working on a project",
 	"version": "0.0.1",
+	"publisher": "alborrajo",
 	"engines": {
 		"vscode": "^1.62.0"
 	},
