@@ -2,8 +2,14 @@
   "name": "codingstreak",
 	"displayName": "CodingStreak",
 	"description": "Keep track of a streak of consecutive days working on a project",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "alborrajo",
+	"license": "SEE LICENSE IN LICENSE",
+	"icon": "resources/logo/logo.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/alborrajo/codingstreak"
+	},
 	"engines": {
 		"vscode": "^1.62.0"
 	},
