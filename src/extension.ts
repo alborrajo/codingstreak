@@ -10,6 +10,8 @@ let streakStatusBarItem: vscode.StatusBarItem;
 let streakDays = 1;
 
 export function activate(context: vscode.ExtensionContext) {
+	context.globalState.setKeysForSync([STREAK_START_DATE_KEY, STREAK_LAST_DATE_KEY]);
+
 	const currentDate = new Date();
 
 	// calculate streak days
