@@ -2,7 +2,7 @@
   "name": "codingstreak",
 	"displayName": "CodingStreak",
 	"description": "Keep track of a streak of consecutive days working on a project",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "alborrajo",
 	"license": "SEE LICENSE IN LICENSE",
 	"icon": "resources/logo/logo.png",
@@ -26,7 +26,17 @@
 				"command": "codingstreak.show",
 				"title": "Show coding streak"
 			}
-		]
+		],
+		"configuration": {
+			"title": "CodingStreak",
+			"properties": {
+				"codingstreak.daysOffWeek": {
+					"type":"array",
+					"default":[0,6],
+					"description": "Days off in the week, 0 being Sunday, 1 being Monday, and so on. Missing one of these days won't break the streak."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
