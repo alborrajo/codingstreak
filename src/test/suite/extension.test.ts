@@ -35,10 +35,4 @@ suite('Extension Test Suite', () => {
 		assert.ok(!codingstreak.isStreakBroken([0,6], new Date(2022, 10, 11), new Date(2022, 10, 14)));
 		assert.ok(codingstreak.isStreakBroken([0,6], new Date(2022, 10, 10), new Date(2022, 10, 14)));
 	});
-
-	test('Test messages', () => {
-		codingstreak.showStreak(420);
-		codingstreak.showStreak(420, false);
-		codingstreak.showStreak(420, true);
-	});
 });

@@ -10,8 +10,11 @@ const DAYS_OFF_WEEK_CONFIG = 'codingstreak.daysOffWeek';
 
 let streakStatusBarItem: vscode.StatusBarItem;
 
+let streakDays: number;
+let todayIsDayOff: boolean;
+
 export function activate(context: vscode.ExtensionContext) {
-	context.globalState.setKeysForSync([STREAK_START_DATE_KEY, STREAK_LAST_DATE_KEY]);
+	context.globalState.setKeysForSync([STREAK_DAYS_KEY, STREAK_START_DATE_KEY, STREAK_LAST_DATE_KEY]);
 
 	// get days off
 	let daysOffWeek: number[] = vscode.workspace.getConfiguration().get(DAYS_OFF_WEEK_CONFIG) || [];
@@ -27,11 +30,13 @@ export function activate(context: vscode.ExtensionContext) {
 		context.globalState.update(STREAK_START_DATE_KEY, streakStartDate);
 	}
 
-	let streakDays: number = context.globalState.get(STREAK_DAYS_KEY) || 0;
+	streakDays = context.globalState.get(STREAK_DAYS_KEY) || 0;
+	todayIsDayOff = isDayOff(daysOffWeek, currentDate);
 
-	// Increment streak and show notification if it's the first time opening VSCode today
+	// Increment streak and how notification if it's the first time opening VSCode today
 	if(streakLastDate === undefined || isFirstTimeToday(streakLastDate, currentDate)) {
-		showStreak(streakDays++, isDayOff(daysOffWeek, currentDate));
+		streakDays++;
+		showStreak();
 	}
 
 	// The command has been defined in the package.json file
@@ -45,7 +50,6 @@ export function activate(context: vscode.ExtensionContext) {
 	streakStatusBarItem.command = 'codingstreak.show';
 	streakStatusBarItem.text = `$(flame)${streakDays}`;
 	context.subscriptions.push(streakStatusBarItem);
-
 	streakStatusBarItem.show();
 
 	context.globalState.update(STREAK_DAYS_KEY, streakDays);
@@ -54,9 +58,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {}
 
-export function showStreak(streakDays: number, isDayOff: boolean = false) {
+export function showStreak() {
 	let msg = `You've been coding for ${streakDays} day(s) in a row. Keep it up!`;
-	if(isDayOff) {
+	if(todayIsDayOff) {
 		msg += '\nIt\'s a day off, remember to take some rest.';
 	}
 	vscode.window.showInformationMessage(msg);
