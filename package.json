@@ -2,7 +2,7 @@
   "name": "codingstreak",
 	"displayName": "CodingStreak",
 	"description": "Keep track of a streak of consecutive days working on a project",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "alborrajo",
 	"license": "SEE LICENSE IN LICENSE",
 	"icon": "resources/logo/logo.png",
