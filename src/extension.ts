@@ -25,12 +25,15 @@ export function activate(context: vscode.ExtensionContext) {
 	let streakStartDate: Date | undefined = context.globalState.get(STREAK_START_DATE_KEY);
 	let streakLastDate: Date | undefined = context.globalState.get(STREAK_LAST_DATE_KEY);
 
-	if(streakStartDate === undefined || (streakLastDate !== undefined && isStreakBroken(daysOffWeek, streakLastDate, currentDate))) {
+	streakDays = context.globalState.get(STREAK_DAYS_KEY) || 0;
+	
+	if(streakStartDate == null || (streakLastDate != null && isStreakBroken(daysOffWeek, streakLastDate, currentDate))) {
 		streakStartDate = currentDate;
 		context.globalState.update(STREAK_START_DATE_KEY, streakStartDate);
+		streakDays = 0;
+		context.globalState.update(STREAK_DAYS_KEY, streakDays);
 	}
 
-	streakDays = context.globalState.get(STREAK_DAYS_KEY) || 0;
 	todayIsDayOff = isDayOff(daysOffWeek, currentDate);
 
 	// Increment streak and how notification if it's the first time opening VSCode today
@@ -83,7 +86,7 @@ export function isStreakBroken(daysOffWeek: number[], streakLastDate: Date, curr
 export function getLastWorkDay(daysOffWeek: number[], todayMidnight: Date): Date {
 	// Prevent infinite looping
 	if([0, 1, 2, 3, 4, 5, 6].every(value => daysOffWeek.includes(value))) {
-		console.warn("All week days are set as off days. No week day will be considered an off day.")
+		console.warn("All week days are set as off days. No week day will be considered an off day.");
 		daysOffWeek = [];
 	}
 
